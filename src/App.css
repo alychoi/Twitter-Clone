@@ -11,3 +11,18 @@ body {
   margin-right: auto;
   padding: 0 10px;
 }
+
+Link {
+  text-decoration: none;
+  color: var(--twitter-color);
+}
+
+Link:active {
+  text-decoration: none;
+  color: var(--twitter-color);
+}
+
+Link:focus, :hover, :visited, :link {
+  text-decoration: none;
+  color: black;
+}

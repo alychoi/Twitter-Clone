@@ -11,7 +11,7 @@ import Comments from "./Comments";
 
 
 const Post = forwardRef(
-  ({ displayName, username, verified, text, image, avatar }, ref) => {
+  ({ id, displayName, username, verified, text, image, avatar }, ref) => {
     const [visible, setVisible] = useState(false);
 
     function hideMe() {
@@ -60,18 +60,20 @@ const Post = forwardRef(
             <Button
               onClick={showMe}
               type="submit"
-              //className="tweetBox__tweetButton"
+              style={{alignItems: "normal"}}
             >
               <ChatBubbleOutlineIcon fontSize="small" />
             </Button>
+            <br></br>
+            {visible && <div>
             <Button
               onClick={hideMe}
               type="submit"
-              //className="tweetBox__tweetButton"
               >
               &times;
-            </Button><br></br>
-            {visible && <Comments />}
+            </Button>
+            <Comments />
+            </div>}
             <RepeatIcon fontSize="small" />
             <FavoriteBorderIcon fontSize="small" />
             <PublishIcon fontSize="small" />

@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-import "./TweetBox.css";
+import Post from "./Feed";
+import "./Comments.css";
 import { Avatar, Button } from "@material-ui/core";
 import db from "./firebase";
 import FlipMove from "react-flip-move";
@@ -29,43 +30,47 @@ const PostComment = forwardRef(
             </div> 
         </div>
         </div>
-      );
+        );
     }
-  );
+  ); 
 
 
 function Comments() {
     const [tweetComment, setTweetComment] = useState("");
     const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    db.collection("comments").onSnapshot((snapshot) =>
-      setComments(snapshot.docs.map((doc) => doc.data()))
-    );
-  }, []);
+    useEffect(() => {
+      db.collection("comments").onSnapshot((snapshot) =>
+        setComments(snapshot.docs.map((doc) => doc.data()))
+      );
+    }, []);
 
   const sendComment = (e) => {
     e.preventDefault();
 
     db.collection("comments").add({
-      displayName: "Timothee Chalamet",
-      username: "timmy",
-      verified: true,
+      displayName: "Bob",
+      username: "bob",
+      verified: false,
       text: tweetComment,
       avatar:
-        "https://i.pinimg.com/736x/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg",
+        "https://yt3.ggpht.com/ytc/AAUvwnhkZjfj3AhZNOvbxzIzVLTKZZHGLAlIHVstuYx1=s900-c-k-c0x00ffffff-no-rj",
     });
 
     console.log(setTweetComment);
 
     setTweetComment("");
   };
+  const idMatches = Post.id === PostComment.id;
+  console.log(Post.id);
+  console.log(PostComment.id);
+  console.log(idMatches);
 
   return (
     <div className="tweetBox">
         <form>
             <div className="tweetBox__input">
-            <Avatar src="https://i.pinimg.com/736x/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg" />
+            <Avatar src="https://yt3.ggpht.com/ytc/AAUvwnhkZjfj3AhZNOvbxzIzVLTKZZHGLAlIHVstuYx1=s900-c-k-c0x00ffffff-no-rj" />
             <input
                 onChange={(e) => setTweetComment(e.target.value)}
                 value={tweetComment}
@@ -80,9 +85,11 @@ function Comments() {
             >
             Reply
             </Button>
+            { idMatches &&
             <FlipMove>
         {comments.map((comment) => (
           <PostComment
+            id={comment.id}
             key={comment.text}
             displayName={comment.displayName}
             username={comment.username}
@@ -91,7 +98,7 @@ function Comments() {
             avatar={comment.avatar}
           />
         ))}
-      </FlipMove>
+      </FlipMove>}
         </form>
     </div>
   );
