@@ -38,6 +38,7 @@ function Feed() {
       <FlipMove>
         {posts.map((post) => (
           <Post
+            id={post.id}
             key={post.text}
             displayName={post.displayName}
             username={post.username}
