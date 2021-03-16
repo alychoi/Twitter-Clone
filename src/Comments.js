@@ -57,14 +57,9 @@ function Comments() {
         "https://yt3.ggpht.com/ytc/AAUvwnhkZjfj3AhZNOvbxzIzVLTKZZHGLAlIHVstuYx1=s900-c-k-c0x00ffffff-no-rj",
     });
 
-    console.log(setTweetComment);
-
     setTweetComment("");
   };
-  const idMatches = Post.id === PostComment.id;
-  console.log(Post.id);
-  console.log(PostComment.id);
-  console.log(idMatches);
+  const idMatches = true;
 
   return (
     <div className="tweetBox">
